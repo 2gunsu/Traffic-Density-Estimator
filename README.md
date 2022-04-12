@@ -69,7 +69,7 @@ DOTA.zip
 ## Usages
 ### Pretrained Weights
 Download the config files and pretrained weights from the table below.
-| Dataset            | Denoiser | Noise Type  | Backbone             | Config File  | Weight File |
+| Trained Dataset    | Denoiser | Noise Type  | Backbone             | Config File  | Weight File |
 | ------------------ | -------- | ----------- | -------------------- | ------------ | ----------- |
 | DOTA               |          |             | ResNeXt-101-FPN      | Download     | Download    |
 | DOTA               |          |             | ResNeXt-101-FPN      | Download     | Download    |
