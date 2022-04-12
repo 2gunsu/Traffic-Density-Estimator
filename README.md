@@ -67,6 +67,8 @@ DOTA.zip
 
 
 ## Usages
+### Pretrained Weights
+
 ### Training
 
 ### Evaluation
@@ -74,10 +76,3 @@ DOTA.zip
 ### Test on Single Image
 
 ### Test on Multi Images
-
-
-## Qualitative Results
-
-
-## Quantitative Results
-
