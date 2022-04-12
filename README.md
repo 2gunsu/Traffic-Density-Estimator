@@ -75,12 +75,16 @@ Download the config files and pretrained weights from the table below.
 | DOTA               |       O       |  Gaussian   | ResNeXt-101-FPN      | Download     | Download    |
 
 ### Training
+Not added yet
 
 ### Evaluation
+Not added yet
 
 ### Test on Single Image
+Not added yet
 
 ### Test on Multi Images
+Not added yet
 
 ## Quantitative Results
 <img src="https://user-images.githubusercontent.com/59532188/163019650-e225bb8d-97dd-4a7c-8cc6-cad258e8cc1b.png" width=900>
