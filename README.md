@@ -8,9 +8,8 @@ I have tested the code in the following environment.
 
 ## Preparations
 ```bash
-# [Step 1]: 
-# Create new conda environment and activate.
-# Set [ENV_NAME] freely to any name you want. (Please exclude the brackets.)
+# [Step 1]: Create new conda environment and activate.
+#           Set [ENV_NAME] freely to any name you want. (Please exclude the brackets.)
 conda create --name [ENV_NAME] python=3.7
 conda activate [ENV_NAME]
 
