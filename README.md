@@ -19,12 +19,14 @@ pip install -r requirements.txt
 
 
 # [Step 3]: Install Pytorch
-pip install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio==0.9.1 -f https://download.pytorch.org/whl/torch_stable.html
+pip install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio==0.9.1 -f \
+https://download.pytorch.org/whl/torch_stable.html
 
 
 # [Step 4]: Install Detectron2
 #           Detectron2 is a platform for object detection, segmentation and other visual recognition tasks.
-python -m pip install detectron2==0.5 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu111/torch1.9/index.html
+python -m pip install detectron2==0.5 -f \
+https://dl.fbaipublicfiles.com/detectron2/wheels/cu111/torch1.9/index.html
 ```
 
 ## Datasets
