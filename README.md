@@ -87,5 +87,5 @@ Not added yet
 Not added yet
 
 ## Quantitative Results
-<img src="https://user-images.githubusercontent.com/59532188/163019650-e225bb8d-97dd-4a7c-8cc6-cad258e8cc1b.png" width=900>
+<img src="https://user-images.githubusercontent.com/59532188/163020764-9802fc98-9a13-474f-9f48-89480bdbcbd9.png" width=600>
 
