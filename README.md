@@ -1,6 +1,9 @@
 # Noise-Robust Traffic Density Estimator
-The traffic density is estimated by extracting the mask of the vehicle present in the satellite image through Mask R-CNN.
+The traffic density is estimated by extracting the mask of the vehicle present in the satellite image through Mask R-CNN.  
 By attaching the denosing network to the front of Mask R-CNN, the above process is more robust to noise present in the image.
+
+<img src="https://user-images.githubusercontent.com/59532188/163021696-13087f11-c695-48e5-a5db-135c510ae804.png" width=400> <img src="https://user-images.githubusercontent.com/59532188/163021732-42898c6b-4d13-4220-9fac-6efbc724975e.gif" width=400>
+
 
 ## Environments
 I have tested the code in the following environment.
