@@ -29,7 +29,7 @@ python -m pip install detectron2==0.5 -f https://dl.fbaipublicfiles.com/detectro
 
 ## Datasets
 ### DOTA: A Large-scale Dataset for Object Detection in Aerial Images [[Paper](https://arxiv.org/abs/1711.10398)] [[Site](https://captain-whu.github.io/DOTA/dataset.html)]
-You can download pre-processed DOTA dataset in this **[link](https://drive.google.com/file/d/1NPdqu3CQWEX6639OV5c6Tletb3lN7eci/view?usp=sharing)** directly.  
+You can download pre-processed DOTA dataset in this **[link](https://drive.google.com/file/d/1NPdqu3CQWEX6639OV5c6Tletb3lN7eci/view?usp=sharing)** directly. (7.3GB)  
 Please note that you can also download the raw dataset and pre-process it by yourself.  
 The structure of the pre-processed data is as follows.
 
@@ -68,6 +68,10 @@ DOTA.zip
 
 ## Usages
 ### Pretrained Weights
+Download the config files and pretrained weights from the table below.
+| Dataset            | Denoiser | Noise Type  | Backbone             | Config File  | Weight File |
+| ------------------ | -------- | ----------- | -------------------- | ------------ | ----------- |
+| DOTA               | - [X]    |             | ResNeXt-101-FPN      | Download     | Download    |
 
 ### Training
 
