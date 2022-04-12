@@ -1,9 +1,9 @@
 # Traffic Density Estimator
 
 ## Environments
-I have tested the code in the following environment.  
+I have tested the code in the following environment.
 | OS                 | Python       | Pytorch      | CUDA         | GPU                   | NVIDIA Driver |
-| ------------------ | ------------ | ------------ | ------------ | --------------------- | ------------- |
+| :----------------: | :----------: | :----------: | :----------: | :-------------------: | :-----------: |
 | Ubuntu 18.04.5 LTS | 3.7.13       | 1.9.1        | 11.1         | NVIDIA RTX A6000      | 470.57.02     |
 
 ## Preparations
@@ -69,12 +69,10 @@ DOTA.zip
 ## Usages
 ### Pretrained Weights
 Download the config files and pretrained weights from the table below.
-| Trained Dataset    | Denoiser | Noise Type  | Backbone             | Config File  | Weight File |
-| ------------------ | -------- | ----------- | -------------------- | ------------ | ----------- |
-| DOTA               |          |             | ResNeXt-101-FPN      | Download     | Download    |
-| DOTA               |          |             | ResNeXt-101-FPN      | Download     | Download    |
-| DOTA               |          |             | ResNeXt-101-FPN      | Download     | Download    |
-| DOTA               |          |             | ResNeXt-101-FPN      | Download     | Download    |
+| Trained Dataset    | With Denoiser | Noise Type  | Backbone             | Config File  | Weight File |
+| :----------------: | :-----------: | :---------: | :------------------: | :----------: | :---------: |
+| DOTA               |       X       |      -      | ResNeXt-101-FPN      | Download     | Download    |
+| DOTA               |       O       |  Gaussian   | ResNeXt-101-FPN      | Download     | Download    |
 
 ### Training
 
