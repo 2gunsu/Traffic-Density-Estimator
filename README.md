@@ -27,13 +27,17 @@ I have tested the code in the following environment.
 conda create --name [ENV_NAME] python=3.7
 conda activate [ENV_NAME]
 
-# [Step 2]: Install some packages using 'requirements.txt' in the repository.
+# [Step 2]: Clone the repository.
+git clone https://github.com/2gunsu/Traffic-Density-Estimator
+cd Traffic-Density-Estimator
+
+# [Step 3]: Install some packages using 'requirements.txt' in the repository.
 pip install -r requirements.txt
 
-# [Step 3]: Install Pytorch v1.9.1
+# [Step 4]: Install Pytorch v1.9.1
 pip install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio==0.9.1 -f https://download.pytorch.org/whl/torch_stable.html
 
-# [Step 4]: Install Detectron2 v0.5
+# [Step 5]: Install Detectron2 v0.5
 #           Detectron2 is a platform for object detection, segmentation and other visual recognition tasks.
 python -m pip install detectron2==0.5 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu111/torch1.9/index.html
 ```
