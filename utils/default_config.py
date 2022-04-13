@@ -254,6 +254,10 @@ _C.MODEL.RPN.POST_NMS_TOPK_TEST = 1000
 # NMS threshold used on RPN proposals
 _C.MODEL.RPN.NMS_THRESH = 0.7
 
+
+# Added for Compatibility
+_C.MODEL.RPN.CONV_DIMS = [-1]
+
 # ---------------------------------------------------------------------------- #
 # ROI HEADS options
 # ---------------------------------------------------------------------------- #
