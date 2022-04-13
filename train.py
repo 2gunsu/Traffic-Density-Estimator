@@ -26,7 +26,7 @@ parser.add_argument('--noise_params', nargs="+", default=[], help="Parameters fo
 
 parser.add_argument('--backbone_arch', type=str, default='X101-FPN', help="Architecture of backbone network",
                     choices=['R50-C4', 'R50-DC5', 'R50-FPN', 'R101-C4', 'R101-DC5', 'R101-FPN', 'X101-FPN'])
-parser.add_argument('--epochs', type=int, default=30, help="Number of training epochs.")
+parser.add_argument('--epochs', type=int, default=10, help="Number of training epochs.")
 parser.add_argument('--base_lr', type=float, default=2.0e-03, help="Learning rate")
 parser.add_argument('--batch_size', type=int, default=8, help="Batch size")
 parser.add_argument('--num_workers', type=int, default=8, help="Number of workers")
@@ -72,6 +72,10 @@ if __name__ == "__main__":
     cfg.MODEL.ROI_HEADS.NUM_CLASSES = get_num_classes(os.path.join(args.train_path, 'Label.json'))
     
     cfg.SOLVER.MAX_ITER = (len(DatasetCatalog.get('train')) // args.batch_size) * args.epochs
+    cfg.SOLVER.STEPS = (int(cfg.SOLVER.MAX_ITER * 0.75), )
+    cfg.SOLVER.WARMUP_ITERS = int(cfg.SOLVER.MAX_ITER * 0.10)
+    cfg.SOLVER.WARMUP_FACTOR = 1.0 / cfg.SOLVER.WARMUP_ITERS
+    
     cfg.SOLVER.BASE_LR = args.base_lr
     cfg.SOLVER.IMS_PER_BATCH = args.batch_size
     cfg.SOLVER.CHECKPOINT_PERIOD = args.save_period
