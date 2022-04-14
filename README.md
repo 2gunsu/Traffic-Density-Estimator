@@ -58,10 +58,10 @@ Some image samples and its corresponding annotations are shown below.
 ## Usages
 ### Pretrained Weights
 Download the config files and pretrained weights from the table below.
-| Trained Dataset    | With Denoiser | Input Size  | Noise Type  | Backbone             | Config File  | Weight File |
-| :----------------: | :-----------: | :---------: | :---------: | :------------------: | :----------: | :---------: |
-| DOTA               |       X       |    800      |      -      | ResNeXt-101-FPN      | [Download](https://drive.google.com/file/d/1ty3IxMOi8TCIf9z_VdXNEWebq3vCXxPG/view?usp=sharing)     | [Download](https://drive.google.com/file/d/1FJK3iQhVtRMAWPrMreSEaUJ-3WBXOV4O/view?usp=sharing)    |
-| DOTA               |       O       |    800      |  Gaussian   | ResNeXt-101-FPN      | Download     | Download    |
+| Trained Dataset    | With Denoiser | Noise Type  | Backbone             | Config File  | Weight File |
+| :----------------: | :-----------: | :---------: | :------------------: | :----------: | :---------: |
+| DOTA               |       X       |      -      | ResNeXt-101-FPN      | [Download](https://drive.google.com/file/d/1ty3IxMOi8TCIf9z_VdXNEWebq3vCXxPG/view?usp=sharing)     | [Download](https://drive.google.com/file/d/1FJK3iQhVtRMAWPrMreSEaUJ-3WBXOV4O/view?usp=sharing)    |
+| DOTA               |       O       |  Gaussian   | ResNeXt-101-FPN      | Download     | Download    |
 
 ### Training
 Please check more detailed parameters in `train.py` and follow the script below for a quick start.  
