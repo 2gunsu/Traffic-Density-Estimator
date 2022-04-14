@@ -49,8 +49,8 @@ You can download pre-processed DOTA dataset in this **[link](https://drive.googl
 Mini version of DOTA dataset can be downloaded from **[here](https://drive.google.com/file/d/1Te6MR4M8AmwtmyohD6HsLOdb8kfpGCC5/view?usp=sharing)**. (54.2MB)  
 Some image samples and its corresponding annotations are shown below.  
 
-<img src="https://user-images.githubusercontent.com/59532188/163309746-53a443f6-fe61-4130-8d48-e01c6ad03549.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309757-05551156-bd10-4703-a279-79076305841f.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309763-a09480c2-1b6d-47a7-bfed-1290469c0bb5.png" width=250 height=250>  
-<img src="https://user-images.githubusercontent.com/59532188/163309767-2d615a45-b9d9-4912-b97b-811ae746844d.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309775-6b797342-596e-4f15-89c9-cfeb200999bf.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309777-67790e26-5ca2-41cc-818b-8d1b83f481a6.png" width=250 height=250>  
+<img src="https://user-images.githubusercontent.com/59532188/163309746-53a443f6-fe61-4130-8d48-e01c6ad03549.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309757-05551156-bd10-4703-a279-79076305841f.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309777-67790e26-5ca2-41cc-818b-8d1b83f481a6.png" width=250 height=250>  
+<img src="https://user-images.githubusercontent.com/59532188/163309767-2d615a45-b9d9-4912-b97b-811ae746844d.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309775-6b797342-596e-4f15-89c9-cfeb200999bf.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309763-a09480c2-1b6d-47a7-bfed-1290469c0bb5.png" width=250 height=250>  
 
 
 ## Usages
