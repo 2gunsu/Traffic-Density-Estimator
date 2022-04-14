@@ -1,5 +1,4 @@
 import os
-import cv2
 import sys
 import copy
 import torch
@@ -7,12 +6,9 @@ import detectron2.data.transforms as T
 import detectron2.data.detection_utils as utils
 
 from typing import Union, Tuple, List
-from detectron2.utils.visualizer import Visualizer
-from detectron2.data import MetadataCatalog, DatasetCatalog
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-from utils.common_utils import register_dataset
 from utils.transforms import Identity, AddGaussianNoise, AddSaltPepperNoise, AddSpeckleNoise, AddRandomNoise
 
 
@@ -80,25 +76,3 @@ def build_mapper(resize: Union[Tuple[int, int], int],
         dataset_dict['instances'] = utils.filter_empty_instances(instances)
         return dataset_dict
     return mapper
-
-
-def visualize_coco_dataset(data_root: str, save_path: str):
-    register_dataset(data_root, 'vis_dataset')
-    
-    meta = MetadataCatalog.get('vis_dataset')
-    dataset_dicts = DatasetCatalog.get('vis_dataset')
-    
-    os.makedirs(save_path, exist_ok=True)
-    
-    print(f"* Visualizing COCO Format Dataset...")
-    print("=" * 120) 
-    for idx, d in enumerate(dataset_dicts):
-        img = cv2.imread(d['file_name'])[:, :, ::-1]
-        img_copy = img.copy()
-        
-        visualizer = Visualizer(img_copy, metadata=meta, scale=1.0)
-        vis = visualizer.draw_dataset_dict(d).get_image()[:, :, ::-1]
-        
-        print(f"[{idx + 1:5d} / {len(dataset_dicts):5d}] Saved to '{os.path.join(save_path, os.path.basename(d['file_name']))}'")
-        cv2.imwrite(os.path.join(save_path, os.path.basename(d['file_name'])), vis)
-    print("=" * 120) 
