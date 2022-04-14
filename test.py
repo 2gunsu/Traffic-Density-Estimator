@@ -2,12 +2,13 @@ import os
 import warnings
 import argparse
 
-from engine.default_engine import MaskRCNNPredictor
+from utils.default_config import _C
+from engine import MaskRCNNPredictor, DMRCNNPredictor
 
 warnings.filterwarnings('ignore')
 
 
-parser = argparse.ArgumentParser(description="Pure Mask R-CNN")
+parser = argparse.ArgumentParser(description="Pure Mask R-CNN Predictor")
 
 parser.add_argument('--config_file', type=str, required=True, help="Path of config file (.yaml)")
 parser.add_argument('--weight_file', type=str, required=True, help="Path of weight file (.pth)")
@@ -32,8 +33,14 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
+    # Check Config
+    cfg = _C.clone()
+    cfg.set_new_allowed(True)
+    cfg.merge_from_file(args.config_file)
+    
     # Initialize Predictor
-    predictor = MaskRCNNPredictor(args.config_file, args.weight_file, args.conf_score)
+    predictor_cls = DMRCNNPredictor if cfg.MODEL.N2V.USE else MaskRCNNPredictor
+    predictor = predictor_cls(args.config_file, args.weight_file, args.conf_score)
     
     if len(args.image_file) > 0:
         assert os.path.isfile(args.image_file), "Cannot find 'image_file' you entered."

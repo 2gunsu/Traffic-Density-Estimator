@@ -16,6 +16,7 @@ from detectron2.data import build_detection_test_loader, build_detection_train_l
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
+from engine import BasePredictor
 from utils.default_config import _C
 from utils.hook import LossEvalHook
 from utils.data_utils import build_mapper
@@ -50,45 +51,13 @@ class MaskRCNNTrainer(DefaultTrainer):
                 self.cfg.DATASETS.TEST[0],
                 mapper=build_mapper(resize=self.cfg.INPUT.RESIZE, noise_type='none'))))
         return hooks
-
-
-class MaskRCNNPredictor:
-    def __init__(self, cfg_file: str, weight_file: str, score_thres: float = 0.60):
-        
-        # Load Config
-        cfg = _C.clone()
-        cfg.set_new_allowed(True)
-        cfg.merge_from_file(cfg_file)
-        cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = score_thres
-        
-        self.cfg = cfg.clone()
-        self.score_thres = score_thres
-        
-        self.model = build_model(self.cfg)
-        self.model.eval()
-        if len(cfg.DATASETS.TEST):
-            self.metadata = MetadataCatalog.get(cfg.DATASETS.TEST[0])
-            
-            thing_classes = self.cfg.TEST.THING_CLASSES
-            self.metadata.set(thing_classes=thing_classes)
-            
-        DetectionCheckpointer(self.model).load(weight_file)
-
-        self.aug = T.Resize(cfg.INPUT.RESIZE)
-        self.input_format = cfg.INPUT.FORMAT
-        assert self.input_format in ["RGB", "BGR"], self.input_format
-
-    def __call__(self, image_arr: np.ndarray):
-        with torch.no_grad():
-            height, width = image_arr.shape[:2]
-            image = self.aug.get_transform(image_arr).apply_image(image_arr)
-            image = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))
-
-            inputs = {"image": image, "height": height, "width": width}
-            predictions = self.model([inputs])[0]
-            return predictions
     
-    def inference_on_single_image(self, image_file: str, save_path: str, image_scale: float = 2.0):
+
+class MaskRCNNPredictor(BasePredictor):
+    def __call__(self, image_arr: np.ndarray):
+        return self._base_call(image_arr)[0]
+
+    def inference_on_single_image(self, image_file: str, save_path: str, image_scale: float = 2):
         img_arr = cv2.imread(image_file)[:, :, ::-1]
         pred = self(img_arr)
         
@@ -97,18 +66,3 @@ class MaskRCNNPredictor:
         out = out.get_image()[:, :, ::-1]
         
         cv2.imwrite(save_path, out)
-        
-    def inference_on_multi_images(self, image_dir: str, save_dir: str, image_scale: float = 2.0):
-        os.makedirs(save_dir, exist_ok=True)
-        image_paths = [os.path.join(image_dir, f) for f in sorted(os.listdir(image_dir))]
-        
-        for image_path in image_paths:
-            self.inference_on_single_image(image_path, os.path.join(save_dir, os.path.basename(image_path)), image_scale)
-            
-    def _extract_binary_mask(self, instances: Instances) -> np.ndarray:
-        scores = instances.scores.detach()
-        score_mask = (scores >= self.score_thres)
-        
-        matched_binary_mask = (instances.pred_masks.detach())[score_mask]
-        merged_mask = torch.clamp(matched_binary_mask.sum(dim=0), max=1.0)
-        return (merged_mask.cpu().numpy() * 255.).astype(np.uint8)

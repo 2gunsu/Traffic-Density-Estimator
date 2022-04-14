@@ -5,13 +5,14 @@ import argparse
 from datetime import datetime
 from detectron2.data import DatasetCatalog, MetadataCatalog
 
-from engine.default_engine import MaskRCNNTrainer
+from model import ModifiedRCNN
+from engine import MaskRCNNTrainer, DMRCNNTrainer
 from utils.common_utils import load_cfg_arch, register_dataset, get_num_classes, export_config
 
 warnings.filterwarnings('ignore')
 
 
-parser = argparse.ArgumentParser(description="Pure Mask R-CNN")
+parser = argparse.ArgumentParser(description="Trainer")
 
 parser.add_argument('--train_path', type=str, help="Directory of training data")
 parser.add_argument('--val_path', type=str, default="", help="Directory of validation data")
@@ -34,12 +35,23 @@ parser.add_argument('--num_workers', type=int, default=8, help="Number of worker
 parser.add_argument('--save_period', type=int, default=5000, help="Step interval to save training results")
 parser.add_argument('--val_period', type=int, default=2000, help="Step interval to perform validation")
 
+# Arguments for Noise2Void
+parser.add_argument('--n2v', action='store_true', help="Whether to use Noise2Void(N2V)")
+
+parser.add_argument('--patch_size', type=int, default=64, help="Size of patch used to train Noise2Void")
+parser.add_argument('--patch_nums', type=int, default=8, help="Number of patches per image")
+parser.add_argument('--unet_base_ch', type=int, default=32, help="Number of base channels in U-Net for Noise2Void")
+parser.add_argument('--win_size', type=int, default=5, help="Size of window used to generate Noise2Void data")
+parser.add_argument('--spot_ratio', type=float, default=0.3, help="Ratio of blind spot")
+parser.add_argument('--n2v_lr', type=float, default=2.5e-04, help="Learning rate of Noise2Void")
 
 
 if __name__ == "__main__":
     
     args = parser.parse_args()
     
+    use_n2v = args.n2v
+    trainer_cls = DMRCNNTrainer if use_n2v else MaskRCNNTrainer
     
     # Get Default Configuration
     cfg = load_cfg_arch(args.backbone_arch)
@@ -83,9 +95,22 @@ if __name__ == "__main__":
     cfg.TEST.EVAL_PERIOD = args.val_period
     cfg.TEST.THING_CLASSES = MetadataCatalog.get('train').get("thing_classes", None)
     
+    # Add Additional Params for Noise2Void
+    
+    if use_n2v:
+        cfg.MODEL.META_ARCHITECTURE = "ModifiedRCNN"
+    
+    cfg.MODEL.N2V.USE = use_n2v
+    cfg.MODEL.N2V.PATCH_SIZE = args.patch_size
+    cfg.MODEL.N2V.PATCH_PER_IMG = args.patch_nums
+    cfg.MODEL.N2V.INITIAL_CH = args.unet_base_ch
+    cfg.MODEL.N2V.WINDOW_SIZE = args.win_size
+    cfg.MODEL.N2V.BLIND_SPOT_RATIO = args.spot_ratio
+    cfg.MODEL.N2V.LR = args.n2v_lr
+    
     
     # Start Training
-    trainer = MaskRCNNTrainer(cfg)
+    trainer = trainer_cls(cfg)
     trainer.resume_or_load(False)
     trainer.train()
     
