@@ -58,14 +58,16 @@ Some image samples and its corresponding annotations are shown below.
 ## Usages
 ### Pretrained Weights
 Download the config files and pretrained weights from the table below.
-| Trained Dataset    | With Denoiser | Noise Type  | Backbone             | Config File  | Weight File |
-| :----------------: | :-----------: | :---------: | :------------------: | :----------: | :---------: |
-| DOTA               |       X       |      -      | ResNeXt-101-FPN      | Download     | Download    |
-| DOTA               |       O       |  Gaussian   | ResNeXt-101-FPN      | Download     | Download    |
+| Trained Dataset    | With Denoiser | Input Size  | Noise Type  | Backbone             | Config File  | Weight File |
+| :----------------: | :-----------: | :---------: | :---------: | :------------------: | :----------: | :---------: |
+| DOTA               |       X       |    800      |      -      | ResNeXt-101-FPN      | [Download](https://drive.google.com/file/d/1ty3IxMOi8TCIf9z_VdXNEWebq3vCXxPG/view?usp=sharing)     | [Download](https://drive.google.com/file/d/1FJK3iQhVtRMAWPrMreSEaUJ-3WBXOV4O/view?usp=sharing)    |
+| DOTA               |       O       |    800      |  Gaussian   | ResNeXt-101-FPN      | Download     | Download    |
 
 ### Training
 Please check more detailed parameters in `train.py` and follow the script below for a quick start.  
 The data path(`--train_path` or `--val_path`) must contain an `Image` folder and a `Label.json` file.  
+Skip the training if you only want to use the pretrained model.  
+
 ```bash
 python train.py --train_path    [str]   # Directory of training data
                 --val_path      [str]   # Directory of validation data
@@ -101,7 +103,10 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
 ```
 
 ## Quantitative Results
-<img src="https://user-images.githubusercontent.com/59532188/163020764-9802fc98-9a13-474f-9f48-89480bdbcbd9.png" width=600>
+<img src="https://user-images.githubusercontent.com/59532188/163020764-9802fc98-9a13-474f-9f48-89480bdbcbd9.png" width=600>  
+
+## Qualitative Results
+**Not Added Yet**  
 
 ## References
 [1] Krull, Alexander, Tim-Oliver Buchholz, and Florian Jug. **["Noise2Void - Learning Denoising from Single Noisy Images."](https://arxiv.org/abs/1811.10980)** Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.  
