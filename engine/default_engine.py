@@ -57,14 +57,24 @@ class MaskRCNNPredictor(BasePredictor):
     def __call__(self, image_arr: np.ndarray):
         return self._base_call(image_arr)[0]
 
-    def inference_on_single_image(self, image_file: str, save_dir: str, image_scale: float = 2):
-        os.makedirs(save_dir, exist_ok=True)
+    def inference_on_single_image(self, image_file: str, save_dir: str, image_scale: float = 1.0):
+        
+        seg_path = os.path.join(save_dir, 'Segmentation')
+        mask_path = os.path.join(save_dir, 'BinaryMask')
+        traffic_path = os.path.join(save_dir, 'Traffic')
+        
+        for p in [seg_path, mask_path, traffic_path]:
+            os.makedirs(p, exist_ok=True)
         
         img_arr = cv2.imread(image_file)[:, :, ::-1]
         pred = self(img_arr)
         
-        v = Visualizer(img_arr, metadata=self.metadata, scale=image_scale, instance_mode=ColorMode.IMAGE)
+        v = Visualizer(img_arr, metadata=self.metadata, scale=image_scale, instance_mode=ColorMode.IMAGE_BW)
         out = v.draw_instance_predictions(pred['instances'].to('cpu'))
         out = out.get_image()[:, :, ::-1]
         
-        cv2.imwrite(os.path.join(save_dir, 'Segmentation_' + os.path.basename(image_file)), out)
+        instance_mask = self._extract_binary_mask(pred['instances'])
+        
+        cv2.imwrite(os.path.join(seg_path, os.path.basename(image_file)), out)
+        cv2.imwrite(os.path.join(mask_path, os.path.basename(image_file)), instance_mask)
+        
