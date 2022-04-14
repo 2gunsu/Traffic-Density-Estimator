@@ -1,7 +1,7 @@
 # Noise-Robust Traffic Density Estimator
 **Project page for Capstone Design 1(2020/03 ~ 2020/06) and Capstone Design 2(2020/09 ~ 2020/12).**
 
-Traffic density is estimated using the mask of the vehicle extracted from satellite image through Mask R-CNN.  
+Traffic density is estimated using the mask of the vehicle extracted from satellite image through **Mask R-CNN**.  
 By attaching the denosing network to the Mask R-CNN, the above process can be more robust to noise in image.
 
 #### [Step 1] Remove Noise from Image
@@ -15,7 +15,7 @@ By attaching the denosing network to the Mask R-CNN, the above process can be mo
 
 
 ## Environments
-I have tested the code in the following environment.
+We have tested the code in the following environment.
 | OS                 | Python       | Pytorch      | CUDA         | GPU                   | NVIDIA Driver |
 | :----------------: | :----------: | :----------: | :----------: | :-------------------: | :-----------: |
 | Ubuntu 18.04.5 LTS | 3.7.13       | 1.9.1        | 11.1         | NVIDIA RTX A6000      | 470.57.02     |
@@ -44,44 +44,13 @@ python -m pip install detectron2==0.5 -f https://dl.fbaipublicfiles.com/detectro
 
 ## Datasets
 ### DOTA: A Large-scale Dataset for Object Detection in Aerial Images [[Paper](https://arxiv.org/abs/1711.10398)] [[Site](https://captain-whu.github.io/DOTA/dataset.html)]
+There are several classes in this dataset, but we only used the classes belonging to the vehicle among them.  
 You can download pre-processed DOTA dataset in this **[link](https://drive.google.com/file/d/1NPdqu3CQWEX6639OV5c6Tletb3lN7eci/view?usp=sharing)** directly. (7.3GB)  
-Some image samples are shown below.  
+Mini version of DOTA dataset can be downloaded from **[here](https://drive.google.com/file/d/1Te6MR4M8AmwtmyohD6HsLOdb8kfpGCC5/view?usp=sharing)**. (54.2MB)  
+Some image samples and its corresponding annotations are shown below.  
 
-<img src="https://user-images.githubusercontent.com/59532188/163018184-4f25fb8b-137f-4b96-9cbd-ef7d7d8377e8.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163018231-54cb510f-2bc8-4503-b2be-6edcbe13a77b.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163018270-8fa3fb7c-36ff-4aec-8d46-c7eecbf3f875.png" width=250 height=250>
-
-The structure of downloaded data is as follows.
-
-```
-DOTA.zip
-|-- Train
-|   |-- Label.json
-|   `-- Image
-|       |-- Image_00000.png
-|       |-- Image_00001.png
-|       |-- Image_00002.png
-|       `-- ...
-|-- Test
-|   |-- Label.json
-|   `-- Image
-|       |-- Image_00042.png
-|       |-- Image_00055.png
-|       |-- Image_00060.png
-|       `-- ...
-|-- Val
-|   |-- Label.json
-|   `-- Image
-|       |-- Image_00066.png
-|       |-- Image_00125.png
-|       |-- Image_00130.png
-|       `-- ...
-`-- Mini
-    |-- Label.json
-    `-- Image
-        |-- Image_00066.png
-        |-- Image_00125.png
-        |-- Image_00130.png
-        `-- ...
-```
+<img src="https://user-images.githubusercontent.com/59532188/163309746-53a443f6-fe61-4130-8d48-e01c6ad03549.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309757-05551156-bd10-4703-a279-79076305841f.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309763-a09480c2-1b6d-47a7-bfed-1290469c0bb5.png" width=250 height=250>  
+<img src="https://user-images.githubusercontent.com/59532188/163309767-2d615a45-b9d9-4912-b97b-811ae746844d.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309775-6b797342-596e-4f15-89c9-cfeb200999bf.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309777-67790e26-5ca2-41cc-818b-8d1b83f481a6.png" width=250 height=250>  
 
 
 ## Usages
@@ -93,20 +62,46 @@ Download the config files and pretrained weights from the table below.
 | DOTA               |       O       |  Gaussian   | ResNeXt-101-FPN      | Download     | Download    |
 
 ### Training
-Not added yet
+Please check more detailed parameters in `train.py` and follow the script below for a quick start.  
+The data path(`--train_path` or `--val_path`) must contain an `Image` folder and a `Label.json` file.  
+```bash
+python train.py --train_path    [str]   # Directory of training data
+                --val_path      [str]   # Directory of validation data
+                --output_dir    [str]   # Output directory
+                --backbone_arch [str]   # Select one in ['R50-FPN', 'R101-FPN', 'X101-FPN'].
+                                        # 'R' denotes for ResNet, 'X' denotes for ResNeXt
+                --gpu_id        [int]   # Index of the GPU to be used for training
+                --epochs        [int]   
+                --batch_size    [int]
+```
 
 ### Evaluation
 Not added yet
 
-### Test on Single Image
-Not added yet
+### Inference on Single Image
+```bash
+python test.py --config_file    [str]   # Path of config file (.yaml)
+               --weight_file    [str]   # Path of weight file (.pth)
+               --conf_score     [float] # Confidence threshold for inference
+               --gpu_id         [int]   # Index of the GPU to be used for inference
+               --image_file     [str]   # Path of single image file
+               --save_path      [str]
+```
 
-### Test on Multi Images
-Not added yet
+### Inference on Multiple Images
+```bash
+python test.py --config_file    [str]   # Path of config file (.yaml)
+               --weight_file    [str]   # Path of weight file (.pth)
+               --conf_score     [float] # Confidence threshold for inference
+               --gpu_id         [int]   # Index of the GPU to be used for inference
+               --image_dir      [str]   # Directory which contains multiple images
+               --save_dir       [str]
+```
 
 ## Quantitative Results
 <img src="https://user-images.githubusercontent.com/59532188/163020764-9802fc98-9a13-474f-9f48-89480bdbcbd9.png" width=600>
 
 ## References
-[1] Krull, Alexander, Tim-Oliver Buchholz, and Florian Jug. **["Noise2Void - Learning Denoising from Single Noisy Images."](https://arxiv.org/abs/1811.10980)** Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.
+[1] Krull, Alexander, Tim-Oliver Buchholz, and Florian Jug. **["Noise2Void - Learning Denoising from Single Noisy Images."](https://arxiv.org/abs/1811.10980)** Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.  
+[2] K. He, G. Gkioxari, P. Dollár and R. Girshick, **["Mask R-CNN,"](https://ieeexplore.ieee.org/document/8237584)** 2017 IEEE International Conference on Computer Vision (ICCV), 2017, pp. 2980-2988, doi: 10.1109/ICCV.2017.322.  
 
