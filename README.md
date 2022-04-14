@@ -89,7 +89,7 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
                --conf_score     [float] # Confidence threshold for inference
                --gpu_id         [int]   # Index of the GPU to be used for inference
                --image_file     [str]   # Path of single image file
-               --save_path      [str]
+               --save_dir       [str]
 ```
 
 ### Inference on Multiple Images

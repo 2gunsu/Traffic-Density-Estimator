@@ -57,7 +57,9 @@ class MaskRCNNPredictor(BasePredictor):
     def __call__(self, image_arr: np.ndarray):
         return self._base_call(image_arr)[0]
 
-    def inference_on_single_image(self, image_file: str, save_path: str, image_scale: float = 2):
+    def inference_on_single_image(self, image_file: str, save_dir: str, image_scale: float = 2):
+        os.makedirs(save_dir, exist_ok=True)
+        
         img_arr = cv2.imread(image_file)[:, :, ::-1]
         pred = self(img_arr)
         
@@ -65,4 +67,4 @@ class MaskRCNNPredictor(BasePredictor):
         out = v.draw_instance_predictions(pred['instances'].to('cpu'))
         out = out.get_image()[:, :, ::-1]
         
-        cv2.imwrite(save_path, out)
+        cv2.imwrite(os.path.join(save_dir, 'Segmentation_' + os.path.basename(image_file)), out)

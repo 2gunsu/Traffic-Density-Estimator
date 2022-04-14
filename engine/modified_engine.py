@@ -378,7 +378,10 @@ class DMRCNNPredictor(BasePredictor):
         
         cv2.imwrite(save_path, denoised_img)
     
-    def inference_on_single_image(self, image_file: str, save_path: str, image_scale: float = 2):
+    def inference_on_single_image(self, image_file: str, save_dir: str, image_scale: float = 2):
+        
+        os.makedirs(save_dir, exist_ok=True)
+        
         img_arr = cv2.imread(image_file)[:, :, ::-1]
         pred, _, denoised_img = self(img_arr)
         
@@ -386,4 +389,6 @@ class DMRCNNPredictor(BasePredictor):
         out = v.draw_instance_predictions(pred['instances'].to('cpu'))
         out = out.get_image()[:, :, ::-1]
         
-        cv2.imwrite(save_path, out)
+        cv2.imwrite(os.path.join(save_dir, 'Segmentation_' + os.path.basename(image_file)), out)
+        cv2.imwrite(os.path.join(save_dir, 'Denoised_' + os.path.basename(image_file)), denoised_img)
+        
