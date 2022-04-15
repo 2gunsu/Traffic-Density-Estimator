@@ -125,9 +125,9 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
 
 
 ## Qualitative Results
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_1.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/1_1.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_2.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/1_2.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_3.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/1_3.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_1.png"><img src="https://user-images.githubusercontent.com/59532188/163575034-5fb6b26a-0084-41a9-8037-0502e3a6686d.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_2.png"><img src="https://user-images.githubusercontent.com/59532188/163575049-b3f944c3-59a0-45fe-b22c-fd785545eced.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_3.png"><img src="https://user-images.githubusercontent.com/59532188/163575098-c810e1c9-84ef-40b0-83e8-ad7657c04f5a.png" width=250 height=250></a>
 
 
 ## References
