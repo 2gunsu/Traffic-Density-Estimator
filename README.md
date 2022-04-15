@@ -94,13 +94,13 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
 ```
 
 But if you want to process very high resolution images, follow the script below.  
-The script below splits a large image into smaller patches(`--grid_size`), inferences them individually, and merges them back together.  
+The script below splits the large image into smaller patches(`--grid_size`), inferences them individually, and merges them back together.  
 ```bash
 python test.py --config_file    [str]   # Path of config file (.yaml)
                --weight_file    [str]   # Path of weight file (.pth)
                --conf_score     [float] # Confidence threshold for inference
                --gpu_id         [int]   # Index of the GPU to be used for inference
-               --image_file     [str]   # Path of single image file
+               --image_file     [str]   # Path of large-sized image file
                --save_dir       [str]
 
                --grid_split
