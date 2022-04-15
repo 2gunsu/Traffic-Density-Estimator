@@ -8,7 +8,7 @@ from engine import MaskRCNNPredictor, DMRCNNPredictor
 warnings.filterwarnings('ignore')
 
 
-parser = argparse.ArgumentParser(description="Pure Mask R-CNN Predictor")
+parser = argparse.ArgumentParser(description="Predictor")
 
 parser.add_argument('--config_file', type=str, required=True, help="Path of config file (.yaml)")
 parser.add_argument('--weight_file', type=str, required=True, help="Path of weight file (.pth)")
@@ -36,6 +36,7 @@ if __name__ == "__main__":
     cfg.set_new_allowed(True)
     cfg.merge_from_file(args.config_file)
     
+    cfg.MODEL.DEVICE = f'cuda:{args.gpu_id}'
     cfg.INPUT.RESIZE = args.input_size
     
     

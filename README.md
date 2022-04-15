@@ -80,7 +80,12 @@ python train.py --train_path    [str]   # Directory of training data
 ```
 
 ### Evaluation
-**Not Added Yet**
+```bash
+python evaluation.py --eval_path      [str]   # Directory of evaluation data
+                     --config_file    [str]   # Path of config file (.yaml)
+                     --weight_file    [str]   # Path of weight file (.pth)
+                     --gpu_id         [int]   # Index of the GPU to be used for evaluation
+```
 
 ### Inference on Single Image
 Follow the script below to test  general sized images.  
