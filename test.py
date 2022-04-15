@@ -49,5 +49,5 @@ if __name__ == "__main__":
         
     elif len(args.image_dir) > 0:
         assert os.path.isdir(args.image_dir), "Cannot find 'image_dir' you entered."
-        predictor.inference_on_multi_images(args.image_dir, args.save_dir, args.output_scale)
+        predictor.inference_on_multi_images(args.image_dir, args.save_dir, args.output_scale, args.grid_split, args.grid_size)
         
