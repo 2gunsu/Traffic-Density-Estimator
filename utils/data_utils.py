@@ -178,12 +178,13 @@ def merge_slices(slices: List[np.ndarray],
                  save_path: str = None):
     
     slice_h, slice_w = slices[0].shape[:2]
+    is_rgb = True if (slices[0].ndim == 3) else False
     
     pos_info = np.array(pos_info)
     max_h, max_w = np.max(pos_info[:, 0]) + 1, np.max(pos_info[:, 1]) + 1
     
     image_h, image_w = (slice_h * max_h), (slice_w * max_w)
-    merged_arr = np.zeros((image_h, image_w, 3), dtype=np.uint8)
+    merged_arr = np.zeros((image_h, image_w, 3), dtype=np.uint8) if is_rgb else np.zeros((image_h, image_w), dtype=np.uint8)
 
     for slice, pos in zip(slices, pos_info):
         
@@ -193,7 +194,7 @@ def merge_slices(slices: List[np.ndarray],
         lt_x = pos[1] * slice_w
         rb_x = lt_x + slice_w
         
-        merged_arr[lt_y: rb_y, lt_x: rb_x, :] = slice
+        merged_arr[lt_y: rb_y, lt_x: rb_x] = slice
         
     if not save_path:
         return merged_arr

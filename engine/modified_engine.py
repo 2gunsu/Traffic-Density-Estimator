@@ -40,7 +40,7 @@ from engine import BasePredictor
 from utils.hook import LossEvalHook
 from utils.default_config import _C
 from utils.model_utils import transfer_weight
-from utils.data_utils import build_mapper, get_noise_adder
+from utils.data_utils import build_mapper, get_noise_adder, load_image
 from model import Noise2Void, ModifiedRCNN
 
 
@@ -362,7 +362,7 @@ class DMRCNNPredictor(BasePredictor):
         return predictions, origin_img, denoised_img
     
     def inference_denoiser(self, image_file: str, noise_type: str, noise_params: List[Union[int, float]], save_path: str) -> np.ndarray:
-        image_arr = cv2.imread(image_file)[:, :, ::-1]
+        image_arr = load_image(image_file)
         noise_maker = get_noise_adder(noise_type, noise_params)
             
         d_h, d_w = image_arr.shape[:2]
@@ -388,13 +388,15 @@ class DMRCNNPredictor(BasePredictor):
         for p in [seg_path, mask_path, denoised_path, traffic_path]:
             os.makedirs(p, exist_ok=True)
         
-        img_arr = cv2.imread(image_file)[:, :, ::-1]
+        img_arr = load_image(image_file)
         pred, _, denoised_img = self(img_arr)
         
+        # Draw Instances on 'img_arr'
         v = Visualizer(img_arr, metadata=self.metadata, scale=image_scale, instance_mode=ColorMode.IMAGE_BW)
         out = v.draw_instance_predictions(pred['instances'].to('cpu'))
         out = out.get_image()[:, :, ::-1]
         
+        # Extract Binary Mask from Prediction
         instance_mask = self._extract_binary_mask(pred['instances'])
         
         cv2.imwrite(os.path.join(seg_path, os.path.basename(image_file)), out)

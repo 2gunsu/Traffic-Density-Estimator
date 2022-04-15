@@ -83,6 +83,7 @@ python train.py --train_path    [str]   # Directory of training data
 **Not Added Yet**
 
 ### Inference on Single Image
+Follow the script below to test  general sized images.  
 ```bash
 python test.py --config_file    [str]   # Path of config file (.yaml)
                --weight_file    [str]   # Path of weight file (.pth)
@@ -90,6 +91,20 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
                --gpu_id         [int]   # Index of the GPU to be used for inference
                --image_file     [str]   # Path of single image file
                --save_dir       [str]
+```
+
+But if you want to process very high resolution images, follow the script below.  
+The script below splits a large image into smaller patches(`--grid_size`), inferences them individually, and merges them back together.  
+```bash
+python test.py --config_file    [str]   # Path of config file (.yaml)
+               --weight_file    [str]   # Path of weight file (.pth)
+               --conf_score     [float] # Confidence threshold for inference
+               --gpu_id         [int]   # Index of the GPU to be used for inference
+               --image_file     [str]   # Path of single image file
+               --save_dir       [str]
+
+               --grid_split
+               --grid_size      [int]   # Determine the size of patches
 ```
 
 ### Inference on Multiple Images

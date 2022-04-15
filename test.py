@@ -20,7 +20,9 @@ parser.add_argument('--save_dir', type=str, default='')
 
 parser.add_argument('--gpu_id', type=int, default=0, help="The index of the GPU to be used for inference (Only Single GPU Available)")
 
-parser.add_argument('--input_size', type=int, default=800, help="Determinte the size of the image to be used for inference")
+parser.add_argument('--input_size', type=int, default=800, help="Determinte the size of the image to be used for inference. (-1 for original size)")
+parser.add_argument('--grid_split', action='store_true', help="Whether to proceed with inference by dividing the image into small patches")
+parser.add_argument('--grid_size', type=int, default=None, help="Determine the size of patches")
 parser.add_argument('--output_scale', type=float, default=2.0)
 
 
@@ -40,7 +42,7 @@ if __name__ == "__main__":
     
     if len(args.image_file) > 0:
         assert os.path.isfile(args.image_file), "Cannot find 'image_file' you entered."
-        predictor.inference_on_single_image(args.image_file, args.save_dir, args.output_scale)
+        predictor.inference_on_single_image(args.image_file, args.save_dir, args.output_scale, args.grid_split, args.grid_size)
         
     elif len(args.image_dir) > 0:
         assert os.path.isdir(args.image_dir), "Cannot find 'image_dir' you entered."
