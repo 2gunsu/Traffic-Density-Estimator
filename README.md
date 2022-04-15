@@ -45,8 +45,7 @@ python -m pip install detectron2==0.5 -f https://dl.fbaipublicfiles.com/detectro
 ## Datasets
 ### DOTA: A Large-scale Dataset for Object Detection in Aerial Images [[Paper](https://arxiv.org/abs/1711.10398)] [[Site](https://captain-whu.github.io/DOTA/dataset.html)]
 There are several classes in this dataset, but we only used the classes belonging to the vehicle among them.  
-You can download pre-processed DOTA dataset in this **[link](https://drive.google.com/file/d/1NPdqu3CQWEX6639OV5c6Tletb3lN7eci/view?usp=sharing)** directly. (7.3GB)  
-Mini version of DOTA dataset can be downloaded from **[here](https://drive.google.com/file/d/1Te6MR4M8AmwtmyohD6HsLOdb8kfpGCC5/view?usp=sharing)**. (54.2MB)  
+You can download pre-processed DOTA dataset in this **[link](https://drive.google.com/file/d/1NPdqu3CQWEX6639OV5c6Tletb3lN7eci/view?usp=sharing)** directly. (7.3GB)   
 Some image samples and its corresponding annotations are shown below.  
 
 <img src="https://user-images.githubusercontent.com/59532188/163309746-53a443f6-fe61-4130-8d48-e01c6ad03549.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309757-05551156-bd10-4703-a279-79076305841f.png" width=250 height=250> <img src="https://user-images.githubusercontent.com/59532188/163309777-67790e26-5ca2-41cc-818b-8d1b83f481a6.png" width=250 height=250>  
@@ -59,7 +58,7 @@ Download the config files and pretrained weights from the table below.
 | Trained Dataset    | With Denoiser | Noise Type  | Backbone             | Config File  | Weight File |
 | :----------------: | :-----------: | :---------: | :------------------: | :----------: | :---------: |
 | DOTA               |       X       |      -      | ResNeXt-101-FPN      | [Download](https://drive.google.com/file/d/1ty3IxMOi8TCIf9z_VdXNEWebq3vCXxPG/view?usp=sharing)     | [Download](https://drive.google.com/file/d/1FJK3iQhVtRMAWPrMreSEaUJ-3WBXOV4O/view?usp=sharing)    |
-| DOTA               |       O       |  Gaussian   | ResNeXt-101-FPN      | Download     | Download    |
+
 
 ### Training
 Please check more detailed parameters in `train.py` and follow the script below for a quick start.  
@@ -97,7 +96,7 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
 ```
 
 But if you want to process very high resolution images, follow the script below.  
-The script below splits the large image into smaller patches(`--grid_size`), inferences them individually, and merges them back together.  
+The script below splits the large image into smaller patches determined by `--grid_size`, inferences them individually, and merges them back together.  
 ```bash
 python test.py --config_file    [str]   # Path of config file (.yaml)
                --weight_file    [str]   # Path of weight file (.pth)
@@ -106,8 +105,8 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
                --image_file     [str]   # Path of large-sized image file
                --save_dir       [str]
 
-               --grid_split
-               --grid_size      [int]   # Determine the size of patches
+               --grid_split             # [Optional]
+               --grid_size      [int]   # [Optional] Determine the size of patches
 ```
 
 ### Inference on Multiple Images
@@ -120,7 +119,7 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
                --save_dir       [str]
 
                --grid_split             # [Optional]
-               --grid_size      [int]   # [Optional]
+               --grid_size      [int]   # [Optional] Determine the size of patches
 ```
 
 ## Quantitative Results
