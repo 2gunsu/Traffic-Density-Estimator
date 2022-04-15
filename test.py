@@ -36,6 +36,9 @@ if __name__ == "__main__":
     cfg.set_new_allowed(True)
     cfg.merge_from_file(args.config_file)
     
+    cfg.INPUT.RESIZE = args.input_size
+    
+    
     # Initialize Predictor
     predictor_cls = DMRCNNPredictor if cfg.MODEL.N2V.USE else MaskRCNNPredictor
     predictor = predictor_cls(args.config_file, args.weight_file, args.conf_score)

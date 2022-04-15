@@ -123,8 +123,11 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
 ## Quantitative Results
 <img src="https://user-images.githubusercontent.com/59532188/163020764-9802fc98-9a13-474f-9f48-89480bdbcbd9.png" width=600>  
 
+
 ## Qualitative Results
-<!--<img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/large_origin_example_1.png" width=250 height=250> <img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/large_segmap_example_1.png" width=250 height=250> <img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/large_mask_example_1.png" width=250 height=250>--> 
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_1.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/1_1.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_2.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/1_2.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_3.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/1_3.png" width=250 height=250></a>
 
 
 ## References

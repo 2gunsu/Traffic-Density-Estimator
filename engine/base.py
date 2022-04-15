@@ -5,6 +5,7 @@ import torch
 import numpy as np
 import detectron2.data.transforms as T
 
+from tqdm.auto import tqdm
 from typing import Union, Tuple
 from detectron2.data import MetadataCatalog
 from detectron2.modeling import build_model
@@ -42,6 +43,8 @@ class BasePredictor:
         
         assert (0.0 < score_thres <= 1.0), "Argument 'score_thres' must be in range (0.0, 1.0]."
         self.score_thres = score_thres
+        self.cfg_file = cfg_file
+        self.weight_file = weight_file
         
         # Build Model
         self.model = build_model(self.cfg)
@@ -60,9 +63,17 @@ class BasePredictor:
         self.aug = T.Resize(cfg.INPUT.RESIZE)
         self.input_format = cfg.INPUT.FORMAT
         assert self.input_format in ["RGB", "BGR"], self.input_format
+        
+        self._init_message()
 
     def __call__(self, image_arr: np.ndarray):
         raise NotImplementedError
+    
+    def _init_message(self):
+        print(f"* Predictor '{self.__class__.__name__}' is initialized.")
+        print(f"    - Configuration: '{self.cfg_file}'")
+        print(f"    - Weight: '{self.weight_file}'")
+        print(f"    - Confidence Threshold: {self.score_thres}")
     
     def _base_call(self, image_arr: np.ndarray):
         
@@ -83,27 +94,18 @@ class BasePredictor:
             predictions = self.model([inputs])[0]
             return predictions, inputs
     
-    def inference_on_single_image(self, 
-                                  image_file: str, 
-                                  save_dir: str, 
-                                  image_scale: float = 1.0, 
-                                  grid_split: bool = False, 
-                                  split_size: int = None):
-        
+    def inference_on_single_image(self, image_file: str, save_dir: str, image_scale: float = 1.0, grid_split: bool = False, split_size: int = None):
         raise NotImplementedError
         
-    def inference_on_multi_images(self, 
-                                  image_dir: str, 
-                                  save_dir: str, 
-                                  image_scale: float = 1.0,
-                                  grid_split: bool = False,
-                                  split_size: int = None):
-        
+    def inference_on_multi_images(self, image_dir: str, save_dir: str, image_scale: float = 1.0, grid_split: bool = False, split_size: int = None):
         os.makedirs(save_dir, exist_ok=True)
         image_paths = [os.path.join(image_dir, f) for f in sorted(os.listdir(image_dir))]
         
+        p_bar = tqdm(total=len(image_paths))
         for image_path in image_paths:
+            p_bar.set_description(f"[Mode: Multi] Inference on '{image_path}'...")
             self.inference_on_single_image(image_path, save_dir, image_scale, grid_split, split_size)
+            p_bar.update()
     
     def _extract_binary_mask(self, instances: Instances) -> np.ndarray:
         scores = instances.scores.detach()

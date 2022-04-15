@@ -348,6 +348,11 @@ class DMRCNNPredictor(BasePredictor):
     def __init__(self, cfg_file: str, weight_file: str, score_thres: float = 0.60):
         super().__init__(cfg_file, weight_file, score_thres)
         self.denoiser = self.model.N2VNet
+        
+        print(f"* Predictor '{self.__class__.__name__}' is initialized.")
+        print(f"    - Configuration: '{cfg_file}'")
+        print(f"    - Weight: '{weight_file}'")
+        print(f"    - Confidence Threshold: {score_thres}")
 
     def __call__(self, origin_img: np.ndarray):
         predictions, inputs = self._base_call(origin_img)
