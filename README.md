@@ -115,6 +115,9 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
                --gpu_id         [int]   # Index of the GPU to be used for inference
                --image_dir      [str]   # Directory which contains multiple images
                --save_dir       [str]
+
+               --grid_split             # [Optional]
+               --grid_size      [int]   # [Optional]
 ```
 
 ## Quantitative Results

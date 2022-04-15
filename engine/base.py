@@ -83,15 +83,27 @@ class BasePredictor:
             predictions = self.model([inputs])[0]
             return predictions, inputs
     
-    def inference_on_single_image(self, image_file: str, save_dir: str, image_scale: float = 1.0):
+    def inference_on_single_image(self, 
+                                  image_file: str, 
+                                  save_dir: str, 
+                                  image_scale: float = 1.0, 
+                                  grid_split: bool = False, 
+                                  split_size: int = None):
+        
         raise NotImplementedError
         
-    def inference_on_multi_images(self, image_dir: str, save_dir: str, image_scale: float = 1.0):
+    def inference_on_multi_images(self, 
+                                  image_dir: str, 
+                                  save_dir: str, 
+                                  image_scale: float = 1.0,
+                                  grid_split: bool = False,
+                                  split_size: int = None):
+        
         os.makedirs(save_dir, exist_ok=True)
         image_paths = [os.path.join(image_dir, f) for f in sorted(os.listdir(image_dir))]
         
         for image_path in image_paths:
-            self.inference_on_single_image(image_path, save_dir, image_scale)
+            self.inference_on_single_image(image_path, save_dir, image_scale, grid_split, split_size)
     
     def _extract_binary_mask(self, instances: Instances) -> np.ndarray:
         scores = instances.scores.detach()

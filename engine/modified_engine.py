@@ -40,7 +40,7 @@ from engine import BasePredictor
 from utils.hook import LossEvalHook
 from utils.default_config import _C
 from utils.model_utils import transfer_weight
-from utils.data_utils import build_mapper, get_noise_adder, load_image
+from utils.data_utils import build_mapper, get_noise_adder, load_image, split_image_into_slices, merge_slices
 from model import Noise2Void, ModifiedRCNN
 
 
@@ -378,7 +378,12 @@ class DMRCNNPredictor(BasePredictor):
         
         cv2.imwrite(save_path, denoised_img)
     
-    def inference_on_single_image(self, image_file: str, save_dir: str, image_scale: float = 1.0):
+    def inference_on_single_image(self, 
+                                  image_file: str, 
+                                  save_dir: str, 
+                                  image_scale: float = 1.0,
+                                  grid_split: bool = False,
+                                  split_size: int = None):
         
         seg_path = os.path.join(save_dir, 'Segmentation')
         mask_path = os.path.join(save_dir, 'BinaryMask')
@@ -388,16 +393,37 @@ class DMRCNNPredictor(BasePredictor):
         for p in [seg_path, mask_path, denoised_path, traffic_path]:
             os.makedirs(p, exist_ok=True)
         
-        img_arr = load_image(image_file)
-        pred, _, denoised_img = self(img_arr)
+        if not grid_split:
+            img_arr = load_image(image_file)
+            pred, _, denoised_img = self(img_arr)
+            
+            # Draw Instances on 'img_arr'
+            v = Visualizer(img_arr, metadata=self.metadata, scale=image_scale, instance_mode=ColorMode.IMAGE_BW)
+            out = v.draw_instance_predictions(pred['instances'].to('cpu'))
+            out = out.get_image()[:, :, ::-1]
         
-        # Draw Instances on 'img_arr'
-        v = Visualizer(img_arr, metadata=self.metadata, scale=image_scale, instance_mode=ColorMode.IMAGE_BW)
-        out = v.draw_instance_predictions(pred['instances'].to('cpu'))
-        out = out.get_image()[:, :, ::-1]
-        
-        # Extract Binary Mask from Prediction
-        instance_mask = self._extract_binary_mask(pred['instances'])
+            # Extract Binary Mask from Prediction
+            instance_mask = self._extract_binary_mask(pred['instances'])
+            
+        else:
+            assert split_size is not None, "When 'grid_split' is True, 'split_size' cannot be None."
+            slices, pos = split_image_into_slices(image_file, split_size)
+            
+            instance_slices, mask_slices = [], []
+            for slice, p in zip(slices, pos):
+                
+                slice_pred, input_meta = self._base_call(slice)
+                origin_shape = (input_meta['height'], input_meta['width'])
+                
+                v = Visualizer(slice, metadata=self.metadata, scale=1.0, instance_mode=ColorMode.IMAGE_BW)
+                out = v.draw_instance_predictions(slice_pred['instances'].to('cpu'))
+                instance_slices.append(cv2.resize(out.get_image()[:, :, ::-1], origin_shape))
+                
+                mask_slice = self._extract_binary_mask(slice_pred['instances'])
+                mask_slices.append(cv2.resize(mask_slice, origin_shape))
+            
+            out = merge_slices(instance_slices, pos)
+            instance_mask = merge_slices(mask_slices, pos)
         
         cv2.imwrite(os.path.join(seg_path, os.path.basename(image_file)), out)
         cv2.imwrite(os.path.join(mask_path, os.path.basename(image_file)), instance_mask)
