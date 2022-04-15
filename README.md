@@ -130,34 +130,34 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
 Please click to enlarge the image.  
 
 #### (1) Daejeon, South Korea
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_1.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/1_1.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_2.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/1_2.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_3.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/1_3.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_1.png"><img src="https://user-images.githubusercontent.com/59532188/163596595-cd7095da-32a0-4a71-8118-ed374b7d9858.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_2.png"><img src="https://user-images.githubusercontent.com/59532188/163596596-25575371-bc63-40c3-95cc-274355b82943.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_3.png"><img src="https://user-images.githubusercontent.com/59532188/163596598-6aaf03b1-64de-4692-9722-879145584708.png" width=250 height=250></a>
 
 #### (2) Incheon, South Korea
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/2_1.png"><img src="https://user-images.githubusercontent.com/59532188/163577601-b316cb81-f94e-4792-9a3f-69deacf9fb37.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/2_2.png"><img src="https://user-images.githubusercontent.com/59532188/163577606-1396d76c-0bd5-47ca-8727-135156acef3a.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/2_3.png"><img src="https://user-images.githubusercontent.com/59532188/163577610-21cc5555-9007-4c3a-af34-e093fd6d2e66.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/2_1.png"><img src="https://user-images.githubusercontent.com/59532188/163596601-e43f64d7-405b-4aeb-8c64-08452b39b169.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/2_2.png"><img src="https://user-images.githubusercontent.com/59532188/163596603-e929ece1-7eda-4868-a099-f06549c9f52d.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/2_3.png"><img src="https://user-images.githubusercontent.com/59532188/163596606-82d30f98-d711-4b62-be3e-f2541b8ee9cf.png" width=250 height=250></a>
 
 #### (3) Seoul, South Korea
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/3_1.png"><img src="https://user-images.githubusercontent.com/59532188/163577736-97e1240a-349e-46b7-9f7e-192a669f3f3d.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/3_2.png"><img src="https://user-images.githubusercontent.com/59532188/163577739-497784bc-4ec4-479f-b407-53a9141c013c.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/3_3.png"><img src="https://user-images.githubusercontent.com/59532188/163577742-435d1333-8fe8-4d91-abc9-e5e64646e210.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/3_1.png"><img src="https://user-images.githubusercontent.com/59532188/163596683-3825f759-4e32-477f-bd4f-b14e45c3b07e.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/3_2.png"><img src="https://user-images.githubusercontent.com/59532188/163596686-ac1a0853-b6bd-492e-897f-26a679e34a37.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/3_3.png"><img src="https://user-images.githubusercontent.com/59532188/163596689-a9b6b77f-157c-4be0-979e-f31dafabbfe2.png" width=250 height=250></a>
 
 #### (4) Busan, South Korea
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/4_1.png"><img src="https://user-images.githubusercontent.com/59532188/163577751-e20239f1-0994-4a71-95be-116fc6952502.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/4_2.png"><img src="https://user-images.githubusercontent.com/59532188/163577756-848ad8c4-cb46-4093-91f3-a57b6c73995b.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/4_3.png"><img src="https://user-images.githubusercontent.com/59532188/163577758-db977feb-1fb0-467a-ae0b-dd4120f5a2e7.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/4_1.png"><img src="https://user-images.githubusercontent.com/59532188/163596690-d48820de-3063-4927-b387-2ba2156db1eb.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/4_2.png"><img src="https://user-images.githubusercontent.com/59532188/163596691-8dfd6535-ca81-4f3e-b9f5-54b6ba68ba3a.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/4_3.png"><img src="https://user-images.githubusercontent.com/59532188/163596696-7d640562-a52e-4874-b274-d646c134b1d3.png" width=250 height=250></a>
 
 #### (5) New York, United States of America
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/5_1.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/5_1.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/5_2.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/5_2.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/5_3.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/5_3.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/5_1.png"><img src="https://user-images.githubusercontent.com/59532188/163596763-a578e239-b25e-47da-b9b6-59a1ab0e36de.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/5_2.png"><img src="https://user-images.githubusercontent.com/59532188/163596765-d137f3d2-5e3f-4645-8a71-ff529b6ee6c8.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/5_3.png"><img src="https://user-images.githubusercontent.com/59532188/163596766-1fddd017-3c3d-43e4-b0bf-46fd4818fa43.png" width=250 height=250></a>
 
 #### (6) Shanghai, China
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/6_1.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/6_1.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/6_2.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/6_2.png" width=250 height=250></a>
-<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/6_3.png"><img src="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/down/6_3.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/6_1.png"><img src="https://user-images.githubusercontent.com/59532188/163596770-701d3605-e1a2-49a0-ab0d-bc605136033d.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/6_2.png"><img src="https://user-images.githubusercontent.com/59532188/163596776-0b0f855d-8f26-4607-98b2-6f8e50a7b5e0.png" width=250 height=250></a>
+<a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/6_3.png"><img src="https://user-images.githubusercontent.com/59532188/163596778-ae64e43a-ca14-4394-99ff-660d2d36ceba.png" width=250 height=250></a>
 
 
 
