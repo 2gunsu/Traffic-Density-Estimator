@@ -3,9 +3,11 @@ import cv2
 import sys
 import copy
 import torch
+import numpy as np
 import detectron2.data.transforms as T
 import detectron2.data.detection_utils as utils
 
+from itertools import product
 from typing import Union, Tuple, List
 from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
@@ -102,3 +104,105 @@ def visualize_coco_dataset(data_root: str, save_path: str):
         print(f"[{idx + 1:5d} / {len(dataset_dicts):5d}] Saved to '{os.path.join(save_path, os.path.basename(d['file_name']))}'")
         cv2.imwrite(os.path.join(save_path, os.path.basename(d['file_name'])), vis)
     print("=" * 120) 
+
+
+def load_image(image_file: str, load_as_tensor: bool = False) -> Union[np.ndarray, torch.Tensor]:
+    # Image File --> np.ndarray (0 ~ 255)
+    img_arr = cv2.imread(image_file)
+    img_arr = cv2.cvtColor(img_arr, cv2.COLOR_BGR2RGB)
+    
+    # np.ndarray (0 ~ 255) --> torch.Tensor (0.0 ~ 1.0)
+    if load_as_tensor:
+        img_arr = torch.from_numpy(img_arr).permute(2, 0, 1) / 255.
+    return img_arr
+
+
+def split_image_into_slices(image_file: str, 
+                            slice_hw: Union[int, Tuple[int, int]], 
+                            allow_overlap: bool = False,
+                            save_path: str = None):
+    
+    img_arr = load_image(image_file)
+    img_h, img_w = img_arr.shape[:2]
+    
+    if isinstance(slice_hw, int):
+        slice_hw = (slice_hw, slice_hw)
+    slice_h, slice_w = slice_hw
+    
+    num_h, num_w = (img_h // slice_h), (img_w // slice_w)
+    
+    if (img_h % slice_h > 0):
+        num_h += 1
+        
+    if (img_w % slice_w > 0):
+        num_w += 1
+        
+    o_h, o_w = 0, 0
+    if allow_overlap:
+        o_h = ((slice_h * num_h) - img_h) // (num_h - 1)
+        o_w = ((slice_w * num_w) - img_w) // (num_w - 1)
+        
+    # If overlap is not allowed, it expands by filling in the value of the insufficient space with 0.
+    else:
+        expanded_img = np.zeros((slice_h * num_h, slice_w * num_w, 3), dtype=np.uint8)
+        expanded_img[:img_h, :img_w, :] = img_arr
+        img_arr = expanded_img
+        
+    slices = []
+    pos = []
+    
+    for h_idx, w_idx in product(range(0, num_h), range(0, num_w)):
+        
+        lt_coor = np.array([w_idx * (slice_w - o_w), (h_idx * (slice_h - o_h))])
+        rb_coor = lt_coor + np.array([slice_w, slice_h])
+        
+        slice = img_arr[lt_coor[1]: rb_coor[1], lt_coor[0]: rb_coor[0], :]
+        slices.append(slice)
+        pos.append([h_idx, w_idx])
+    
+    if not save_path:
+        return slices, pos
+    
+    os.makedirs(save_path, exist_ok=True)
+    for slice, p in zip(slices, pos):
+        
+        f_name, f_ext = os.path.splitext(os.path.basename(image_file))
+        file_name = f"{f_name}_C{str(p[0]).zfill(2)}_R{str(p[1]).zfill(2)}_{f_ext}"
+        
+        slice = cv2.cvtColor(slice, cv2.COLOR_RGB2BGR)
+        cv2.imwrite(os.path.join(save_path, file_name), slice)
+
+
+def merge_slices(slices: List[np.ndarray], 
+                 pos_info: List[List[int]], 
+                 save_path: str = None):
+    
+    slice_h, slice_w = slices[0].shape[:2]
+    
+    pos_info = np.array(pos_info)
+    max_h, max_w = np.max(pos_info[:, 0]) + 1, np.max(pos_info[:, 1]) + 1
+    
+    image_h, image_w = (slice_h * max_h), (slice_w * max_w)
+    merged_arr = np.zeros((image_h, image_w, 3), dtype=np.uint8)
+
+    for slice, pos in zip(slices, pos_info):
+        
+        lt_y = pos[0] * slice_h
+        rb_y = lt_y + slice_h
+        
+        lt_x = pos[1] * slice_w
+        rb_x = lt_x + slice_w
+        
+        merged_arr[lt_y: rb_y, lt_x: rb_x, :] = slice
+        
+    if not save_path:
+        return merged_arr
+
+    merged_arr = cv2.cvtColor(merged_arr, cv2.COLOR_RGB2BGR)
+    cv2.imwrite(save_path, merged_arr)
+
+
+if __name__ == "__main__":
+    slices, pos = split_image_into_slices(r"/_CODE2/Traffic-Density-Estimator/Image_00629.png", (100, 100))
+    merge_slices(slices, pos, "AA.jpg")
+    

@@ -19,7 +19,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from engine import BasePredictor
 from utils.default_config import _C
 from utils.hook import LossEvalHook
-from utils.data_utils import build_mapper
+from utils.data_utils import build_mapper, load_image
 
 
 class MaskRCNNTrainer(DefaultTrainer):
@@ -66,15 +66,16 @@ class MaskRCNNPredictor(BasePredictor):
         for p in [seg_path, mask_path, traffic_path]:
             os.makedirs(p, exist_ok=True)
         
-        img_arr = cv2.imread(image_file)[:, :, ::-1]
+        img_arr = load_image(image_file)
         pred = self(img_arr)
         
+        # Draw Instances on 'img_arr'
         v = Visualizer(img_arr, metadata=self.metadata, scale=image_scale, instance_mode=ColorMode.IMAGE_BW)
         out = v.draw_instance_predictions(pred['instances'].to('cpu'))
         out = out.get_image()[:, :, ::-1]
         
+        # Extract Binary Mask from Prediction
         instance_mask = self._extract_binary_mask(pred['instances'])
         
         cv2.imwrite(os.path.join(seg_path, os.path.basename(image_file)), out)
         cv2.imwrite(os.path.join(mask_path, os.path.basename(image_file)), instance_mask)
-        
