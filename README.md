@@ -77,6 +77,7 @@ python train.py --train_path    [str]   # Directory of training data
 ```
 
 ### Evaluation
+If you want to proceed with quantitative evaluation, follow the script below.  
 ```bash
 python evaluation.py --eval_path      [str]   # Directory of evaluation data
                      --config_file    [str]   # Path of config file (.yaml)
@@ -85,7 +86,7 @@ python evaluation.py --eval_path      [str]   # Directory of evaluation data
 ```
 
 ### Inference on Single Image
-Follow the script below to test general-sized images.  
+Follow the script below to test general-sized image.  
 ```bash
 python test.py --config_file    [str]   # Path of config file (.yaml)
                --weight_file    [str]   # Path of weight file (.pth)
