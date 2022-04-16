@@ -85,7 +85,7 @@ python evaluation.py --eval_path      [str]   # Directory of evaluation data
 ```
 
 ### Inference on Single Image
-Follow the script below to test  general sized images.  
+Follow the script below to test general-sized images.  
 ```bash
 python test.py --config_file    [str]   # Path of config file (.yaml)
                --weight_file    [str]   # Path of weight file (.pth)

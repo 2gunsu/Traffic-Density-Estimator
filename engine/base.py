@@ -75,7 +75,7 @@ class BasePredictor:
         print(f"* Predictor '{self.__class__.__name__}' is initialized.")
         print(f"    - Configuration: '{self.cfg_file}'")
         print(f"    - Weight: '{self.weight_file}'")
-        print(f"    - Confidence Threshold: {self.score_thres}\n")
+        print(f"    - Confidence Threshold: {self.score_thres}")
     
     def _base_call(self, image_arr: np.ndarray):
         

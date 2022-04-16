@@ -409,6 +409,7 @@ class DMRCNNPredictor(BasePredictor):
         
             # Extract binary mask from prediction
             instance_mask = self._extract_binary_mask(pred['instances'])
+            traffic = self._overlay_mask_on_image(img_arr[:, :, ::-1], instance_mask)
             
         else:
             assert split_size is not None, "When 'grid_split' is True, 'split_size' cannot be None."
