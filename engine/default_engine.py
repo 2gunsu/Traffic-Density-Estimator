@@ -75,16 +75,21 @@ class MaskRCNNPredictor(BasePredictor):
             img_arr = load_image(image_file)
             pred = self(img_arr)
             
-            # Draw Instances on 'img_arr'
+            # Draw predicted instances on 'img_arr'
             v = Visualizer(img_arr, metadata=self.metadata, scale=image_scale, instance_mode=ColorMode.IMAGE_BW)
             out = v.draw_instance_predictions(pred['instances'].to('cpu'))
             out = out.get_image()[:, :, ::-1]
             
-            # Extract Binary Mask from Prediction
+            # Extract binary mask from prediction
             instance_mask = self._extract_binary_mask(pred['instances'])
             
         else:
             assert split_size is not None, "When 'grid_split' is True, 'split_size' cannot be None."
+            
+            img_arr = load_image(image_file)
+            ori_img_h, ori_img_w = img_arr.shape[:2]
+            
+            # Split large image into smaller patches
             slices, pos = split_image_into_slices(image_file, split_size)
             
             instance_slices, mask_slices = [], []
@@ -100,8 +105,12 @@ class MaskRCNNPredictor(BasePredictor):
                 mask_slice = self._extract_binary_mask(slice_pred['instances'])
                 mask_slices.append(cv2.resize(mask_slice, origin_shape))
             
-            out = merge_slices(instance_slices, pos)
-            instance_mask = merge_slices(mask_slices, pos)
-                
+            # Merge the patches and trim the zero-filled edges.
+            out = merge_slices(instance_slices, pos)[:ori_img_h, :ori_img_w]
+            instance_mask = merge_slices(mask_slices, pos)[:ori_img_h, :ori_img_w]
+            traffic = self._overlay_mask_on_image(img_arr, instance_mask)
+        
+        # Save results
         cv2.imwrite(os.path.join(seg_path, os.path.basename(image_file)), out)
         cv2.imwrite(os.path.join(mask_path, os.path.basename(image_file)), instance_mask)
+        cv2.imwrite(os.path.join(traffic_path, os.path.basename(image_file)), traffic)

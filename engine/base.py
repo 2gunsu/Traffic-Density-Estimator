@@ -1,12 +1,14 @@
 import os
 import cv2
 import sys
+import math
 import torch
 import numpy as np
 import detectron2.data.transforms as T
 
 from tqdm.auto import tqdm
-from typing import Union, Tuple
+from itertools import product
+from typing import Union, Tuple, List
 from detectron2.data import MetadataCatalog
 from detectron2.modeling import build_model
 from detectron2.structures import Instances
@@ -115,3 +117,40 @@ class BasePredictor:
         merged_mask = torch.clamp(matched_binary_mask.sum(dim=0), max=1.0)
         return (merged_mask.cpu().numpy() * 255.).astype(np.uint8)
     
+    def _overlay_mask_on_image(self, rgb_arr: np.ndarray, mask_arr: np.ndarray) -> np.ndarray:
+        
+        def divisor_finder(n: int) -> List[int]:
+            divs = [1]
+            for i in range(2, int(math.sqrt(n)) + 1):
+                if (n % i == 0):
+                    divs.extend([i, int(n / i)])
+            divs.extend([n])
+            return sorted(list(set(divs)))
+        
+        # Get resolution of image
+        h, w = rgb_arr.shape[:2]
+        
+        # Convert binary mask to density map
+        density = np.full((h, w), fill_value=255, dtype=np.uint8)
+        
+        h_divs = divisor_finder(h)
+        h_grid_size = h // (h_divs[int(len(h_divs) * 0.6)])
+        h_grid_num = h // h_grid_size
+        
+        w_divs = divisor_finder(w)
+        w_grid_size = w // (w_divs[int(len(w_divs) * 0.6)])
+        w_grid_num = w // w_grid_size        
+        
+        for h_g, w_g in product(range(h_grid_num), range(w_grid_num)):
+            lt = np.array([h_g * h_grid_size, w_g * w_grid_size])
+            rb = lt + np.array([h_grid_size, w_grid_size])
+            
+            mask_patch = mask_arr[lt[0]: rb[0], lt[1]: rb[1]]
+            d_value = mask_patch.sum()
+            
+            density[lt[0]: rb[0], lt[1]: rb[1], [0, 1]] = (255 - int(d_value // 2))
+        density = cv2.GaussianBlur(density, ksize=(0, 0), sigmaX=(h_grid_size + w_grid_size) // 2)
+        
+        # Overlay density map on rgb image
+        result = cv2.addWeighted(rgb_arr, 0.4, density, 0.6, gamma=0.0)
+        return result
