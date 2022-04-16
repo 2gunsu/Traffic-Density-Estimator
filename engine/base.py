@@ -75,7 +75,7 @@ class BasePredictor:
         print(f"* Predictor '{self.__class__.__name__}' is initialized.")
         print(f"    - Configuration: '{self.cfg_file}'")
         print(f"    - Weight: '{self.weight_file}'")
-        print(f"    - Confidence Threshold: {self.score_thres}")
+        print(f"    - Confidence Threshold: {self.score_thres}\n")
     
     def _base_call(self, image_arr: np.ndarray):
         
@@ -103,11 +103,13 @@ class BasePredictor:
         os.makedirs(save_dir, exist_ok=True)
         image_paths = [os.path.join(image_dir, f) for f in sorted(os.listdir(image_dir))]
         
-        p_bar = tqdm(total=len(image_paths))
-        for image_path in image_paths:
-            p_bar.set_description(f"[Mode: Multi] Inference on '{image_path}'...")
+        print(f"* Found {len(image_paths)} images from '{image_dir}' for the inference.")
+        if grid_split:
+            print("** Inference can be slow because 'grid_split' mode is now enabled.")
+        
+        for p_idx, image_path in enumerate(image_paths):
+            print(f"    - [{p_idx + 1:3d} / {len(image_paths):3d}] Inference on '{image_path}'...")
             self.inference_on_single_image(image_path, save_dir, image_scale, grid_split, split_size)
-            p_bar.update()
     
     def _extract_binary_mask(self, instances: Instances) -> np.ndarray:
         scores = instances.scores.detach()
@@ -131,14 +133,14 @@ class BasePredictor:
         h, w = rgb_arr.shape[:2]
         
         # Convert binary mask to density map
-        density = np.full((h, w), fill_value=255, dtype=np.uint8)
+        density = np.full((h, w, 3), fill_value=255, dtype=np.uint8)
         
         h_divs = divisor_finder(h)
-        h_grid_size = h // (h_divs[int(len(h_divs) * 0.6)])
+        h_grid_size = h // (h_divs[int(len(h_divs) * 0.5)])
         h_grid_num = h // h_grid_size
         
         w_divs = divisor_finder(w)
-        w_grid_size = w // (w_divs[int(len(w_divs) * 0.6)])
+        w_grid_size = w // (w_divs[int(len(w_divs) * 0.5)])
         w_grid_num = w // w_grid_size        
         
         for h_g, w_g in product(range(h_grid_num), range(w_grid_num)):
@@ -148,9 +150,9 @@ class BasePredictor:
             mask_patch = mask_arr[lt[0]: rb[0], lt[1]: rb[1]]
             d_value = mask_patch.sum()
             
-            density[lt[0]: rb[0], lt[1]: rb[1], [0, 1]] = (255 - int(d_value // 2))
+            density[lt[0]: rb[0], lt[1]: rb[1], [0, 1]] = (255 - int(d_value // 4))
         density = cv2.GaussianBlur(density, ksize=(0, 0), sigmaX=(h_grid_size + w_grid_size) // 2)
         
         # Overlay density map on rgb image
-        result = cv2.addWeighted(rgb_arr, 0.4, density, 0.6, gamma=0.0)
+        result = cv2.addWeighted(rgb_arr, 0.45, density, 0.55, gamma=0.0)
         return result
