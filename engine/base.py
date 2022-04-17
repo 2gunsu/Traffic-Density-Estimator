@@ -132,6 +132,9 @@ class BasePredictor:
         # Get resolution of image
         h, w = rgb_arr.shape[:2]
         
+        # Rescale 'mask_arr'
+        mask_arr = (mask_arr / 255.) * 3
+        
         # Convert binary mask to density map
         density = np.full((h, w, 3), fill_value=255, dtype=np.uint8)
         
@@ -141,7 +144,9 @@ class BasePredictor:
         
         w_divs = divisor_finder(w)
         w_grid_size = w // (w_divs[int(len(w_divs) * 0.5)])
-        w_grid_num = w // w_grid_size        
+        w_grid_num = w // w_grid_size
+        
+        sensitivity = (1 / 1800 * ((h + w) // 2)) + (23 / 9)  
         
         for h_g, w_g in product(range(h_grid_num), range(w_grid_num)):
             lt = np.array([h_g * h_grid_size, w_g * w_grid_size])
@@ -150,9 +155,9 @@ class BasePredictor:
             mask_patch = mask_arr[lt[0]: rb[0], lt[1]: rb[1]]
             d_value = mask_patch.sum()
             
-            density[lt[0]: rb[0], lt[1]: rb[1], [0, 1]] = (255 - int(d_value // 4))
-        density = cv2.GaussianBlur(density, ksize=(0, 0), sigmaX=(h_grid_size + w_grid_size) // 2)
+            density[lt[0]: rb[0], lt[1]: rb[1], [0, 1]] = (255 - int(d_value // sensitivity))
+        density = cv2.GaussianBlur(density, ksize=(0, 0), sigmaX=(h_grid_size + w_grid_size) // 3)
         
         # Overlay density map on rgb image
-        result = cv2.addWeighted(rgb_arr, 0.45, density, 0.55, gamma=0.0)
+        result = cv2.addWeighted(rgb_arr, 0.4, density, 0.6, gamma=0.0)
         return result
