@@ -115,3 +115,5 @@ class MaskRCNNPredictor(BasePredictor):
         cv2.imwrite(os.path.join(seg_path, os.path.basename(image_file)), out)
         cv2.imwrite(os.path.join(mask_path, os.path.basename(image_file)), instance_mask)
         cv2.imwrite(os.path.join(traffic_path, os.path.basename(image_file)), traffic)
+        
+        print(f"* Inference finished. Result files are saved to '{save_dir}'.")

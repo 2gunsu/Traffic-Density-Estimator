@@ -11,7 +11,9 @@ By attaching the denosing network to the Mask R-CNN, the above process can be mo
 <img src="https://user-images.githubusercontent.com/59532188/163021696-13087f11-c695-48e5-a5db-135c510ae804.png" width=400> <img src="https://user-images.githubusercontent.com/59532188/163021732-42898c6b-4d13-4220-9fac-6efbc724975e.gif" width=400>
 
 #### [Step 3] Convert Vehicle Masks to Density Map (Click to enlarge images)
-<img src="https://user-images.githubusercontent.com/59532188/163023971-d2baf397-8be6-48ef-b2f7-798f6494510e.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163022216-e50c9657-b0b4-4fa4-8705-890f18ea17b9.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163023718-031d3ab0-e1fc-47aa-9fbf-2abfb4e8cdba.png" width=270>
+<!--<img src="https://user-images.githubusercontent.com/59532188/163023971-d2baf397-8be6-48ef-b2f7-798f6494510e.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163022216-e50c9657-b0b4-4fa4-8705-890f18ea17b9.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163023718-031d3ab0-e1fc-47aa-9fbf-2abfb4e8cdba.png" width=270>-->
+<img src="https://user-images.githubusercontent.com/59532188/163724881-828d41ee-b9e4-4386-96cf-a6aa27f959e4.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163724884-2e2fb84a-be54-4111-9a5f-433a461a5715.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163724886-61223964-83bd-4f62-a3b7-d667ceca265a.png" width=270>
+
 
 
 ## Environments

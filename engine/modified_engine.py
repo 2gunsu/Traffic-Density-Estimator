@@ -444,3 +444,5 @@ class DMRCNNPredictor(BasePredictor):
         cv2.imwrite(os.path.join(denoised_path, os.path.basename(image_file)), denoised_img)
         cv2.imwrite(os.path.join(traffic_path, os.path.basename(image_file)), traffic)
         
+        print(f"* Inference finished. Result files are saved to '{save_dir}'.")
+        
