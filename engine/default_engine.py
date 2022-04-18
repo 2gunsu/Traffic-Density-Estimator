@@ -72,7 +72,7 @@ class MaskRCNNPredictor(BasePredictor):
             os.makedirs(p, exist_ok=True)
         
         if not grid_split:
-            img_arr = load_image(image_file)
+            img_arr = load_image(image_file, verbose=True)
             pred = self(img_arr)
             
             # Draw predicted instances on 'img_arr'
@@ -87,7 +87,7 @@ class MaskRCNNPredictor(BasePredictor):
         else:
             assert split_size is not None, "When 'grid_split' is True, 'split_size' cannot be None."
             
-            img_arr = load_image(image_file)[:, :, ::-1]
+            img_arr = load_image(image_file, verbose=True)[:, :, ::-1]
             ori_img_h, ori_img_w = img_arr.shape[:2]
             
             # Split large image into smaller patches

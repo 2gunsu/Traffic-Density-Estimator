@@ -106,10 +106,13 @@ def visualize_coco_dataset(data_root: str, save_path: str):
     print("=" * 120) 
 
 
-def load_image(image_file: str, load_as_tensor: bool = False) -> Union[np.ndarray, torch.Tensor]:
+def load_image(image_file: str, load_as_tensor: bool = False, verbose: bool = False) -> Union[np.ndarray, torch.Tensor]:
     # Image File --> np.ndarray (0 ~ 255)
     img_arr = cv2.imread(image_file)
     img_arr = cv2.cvtColor(img_arr, cv2.COLOR_BGR2RGB)
+    
+    if verbose:
+        print(f"* Image '{image_file}' is loaded. (Shape: {img_arr.shape})")
     
     # np.ndarray (0 ~ 255) --> torch.Tensor (0.0 ~ 1.0)
     if load_as_tensor:
@@ -160,9 +163,11 @@ def split_image_into_slices(image_file: str,
         slices.append(slice)
         pos.append([h_idx, w_idx])
     
+    # If 'save_path' is None, return the results.
     if not save_path:
         return slices, pos
     
+    # If 'save_path' is not None, all slices are saved as image files.
     os.makedirs(save_path, exist_ok=True)
     for slice, p in zip(slices, pos):
         
@@ -201,9 +206,3 @@ def merge_slices(slices: List[np.ndarray],
 
     merged_arr = cv2.cvtColor(merged_arr, cv2.COLOR_RGB2BGR)
     cv2.imwrite(save_path, merged_arr)
-
-
-if __name__ == "__main__":
-    slices, pos = split_image_into_slices(r"/_CODE2/Traffic-Density-Estimator/Image_00629.png", (100, 100))
-    merge_slices(slices, pos, "AA.jpg")
-    
