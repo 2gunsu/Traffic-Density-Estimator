@@ -60,6 +60,8 @@ Download the config files and pretrained weights from the table below.
 | Trained Dataset    | With Denoiser | Noise Type  | Backbone             | Config File  | Weight File |
 | :----------------: | :-----------: | :---------: | :------------------: | :----------: | :---------: |
 | DOTA               |       X       |      -      | ResNeXt-101-FPN      | [Download](https://drive.google.com/file/d/1ty3IxMOi8TCIf9z_VdXNEWebq3vCXxPG/view?usp=sharing)     | [Download](https://drive.google.com/file/d/1FJK3iQhVtRMAWPrMreSEaUJ-3WBXOV4O/view?usp=sharing)    |
+| DOTA               |       X       |      -      | ResNet-101-FPN       | [Download](https://drive.google.com/file/d/1HQMxAHCyfIvfMg3gSyTytzpQf3DOi3zv/view?usp=sharing)     | [Download](https://drive.google.com/file/d/1bF1c8COaj84s-e81jaG4yY9zzn2XgnVc/view?usp=sharing)    |
+| DOTA               |       X       |      -      | ResNet-50-FPN        | [Download](https://drive.google.com/file/d/17Ci1OV65LKhFAtN8gNkuTa-XRWd68Dz9/view?usp=sharing)     | [Download](https://drive.google.com/file/d/1rglj3xV-U_syGo1dntOECmhfUQGtkwXA/view?usp=sharing)    |
 
 
 ### Training
