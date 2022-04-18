@@ -18,9 +18,9 @@ parser.add_argument('--image_file', type=str, default='', help="Path of single i
 parser.add_argument('--image_dir', type=str, default='', help="Directory which contains multiple image files")      # Inference for Multiple Image Files
 parser.add_argument('--save_dir', type=str, default='')
 
-parser.add_argument('--gpu_id', type=int, default=0, help="The index of the GPU to be used for inference (Only Single GPU Available)")
+parser.add_argument('--gpu_id', type=int, default=0, help="The index of the GPU to be used for inference (Only single GPU available)")
 
-parser.add_argument('--input_size', type=int, default=800, help="Determinte the size of the image to be used for inference. (-1 for original size)")
+parser.add_argument('--input_size', type=int, default=800, help="Determinte the size of the image to be used for inference.")
 parser.add_argument('--grid_split', action='store_true', help="Whether to proceed with inference by dividing the image into small patches")
 parser.add_argument('--grid_size', type=int, default=None, help="Determine the size of patches")
 parser.add_argument('--output_scale', type=float, default=1.0)

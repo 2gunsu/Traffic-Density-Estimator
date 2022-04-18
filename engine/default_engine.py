@@ -83,9 +83,10 @@ class MaskRCNNPredictor(BasePredictor):
             # Extract binary mask from prediction
             instance_mask = self._extract_binary_mask(pred['instances'])
             traffic = self._overlay_mask_on_image(img_arr[:, :, ::-1], instance_mask)
-            
+        
         else:
             assert split_size is not None, "When 'grid_split' is True, 'split_size' cannot be None."
+            assert isinstance(split_size, int), "'split_size' must be integer."
             
             img_arr = load_image(image_file, verbose=True)[:, :, ::-1]
             ori_img_h, ori_img_w = img_arr.shape[:2]

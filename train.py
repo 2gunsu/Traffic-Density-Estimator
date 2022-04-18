@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(description="Trainer")
 parser.add_argument('--train_path', type=str, help="Directory of training data")
 parser.add_argument('--val_path', type=str, default="", help="Directory of validation data")
 
-parser.add_argument('--gpu_id', type=int, default=0, help="The index of the GPU to be used for training. (Only Single GPU Available)")
+parser.add_argument('--gpu_id', type=int, default=0, help="The index of the GPU to be used for training. (Only single GPU available)")
 parser.add_argument('--output_dir', type=str, default="", help="Output directory where training results are saved to")
 
 parser.add_argument('--input_size', type=int, default=800, help="Determinte the size of the image to be used for training")
