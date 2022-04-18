@@ -1,4 +1,5 @@
 # Noise-Robust Traffic Density Estimator
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F2gunsu%2FTraffic-Density-Estimator&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Hits&edge_flat=false)](https://hits.seeyoufarm.com)  
 **Project page for Capstone Design 1(2020/03 ~ 2020/06) and Capstone Design 2(2020/09 ~ 2020/12).**
 
 Traffic density is estimated using the mask of the vehicle extracted from satellite image through **Mask R-CNN**.  
@@ -170,8 +171,6 @@ The images below are very high resolution, so loading may take some time.
 <a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/6_2.png"><img src="https://user-images.githubusercontent.com/59532188/163673177-9c62ea8b-c19f-422d-b197-9fa9f4cb5b2f.png" width=180 height=180></a>
 <a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/6_3.png"><img src="https://user-images.githubusercontent.com/59532188/163673218-b8df69c7-3633-4957-95a4-c0c89eef5ee3.png" width=180 height=180></a>
 <a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/6_4.png"><img src="https://user-images.githubusercontent.com/59532188/163719804-55d954fd-98ab-4ed0-97d2-8228ad46d5fb.png" width=180 height=180></a>
-
-
 
 
 ## References
