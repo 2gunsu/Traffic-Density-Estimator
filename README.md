@@ -4,13 +4,13 @@
 Traffic density is estimated using the mask of the vehicle extracted from satellite image through **Mask R-CNN**.  
 By attaching the denosing network to the Mask R-CNN, the above process can be more robust to noise in image.
 
-#### [Step 1] Remove Noise from Image
+#### [Step 1] Noise Removal
 <img src="https://user-images.githubusercontent.com/59532188/163022985-740996b6-e343-4679-a7b3-85d1429dc5b2.png" width=400> <img src="https://user-images.githubusercontent.com/59532188/163023357-d5608e80-6582-451c-b123-b4c17dbe77da.gif" width=400>
 
-#### [Step 2] Extract Vehicle Masks from Clean Image 
+#### [Step 2] Vehicle Mask Extraction
 <img src="https://user-images.githubusercontent.com/59532188/163021696-13087f11-c695-48e5-a5db-135c510ae804.png" width=400> <img src="https://user-images.githubusercontent.com/59532188/163021732-42898c6b-4d13-4220-9fac-6efbc724975e.gif" width=400>
 
-#### [Step 3] Convert Vehicle Masks to Density Map (Click to enlarge images)
+#### [Step 3] Density Map Generation
 <!--<img src="https://user-images.githubusercontent.com/59532188/163023971-d2baf397-8be6-48ef-b2f7-798f6494510e.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163022216-e50c9657-b0b4-4fa4-8705-890f18ea17b9.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163023718-031d3ab0-e1fc-47aa-9fbf-2abfb4e8cdba.png" width=270>-->
 <img src="https://user-images.githubusercontent.com/59532188/163724881-828d41ee-b9e4-4386-96cf-a6aa27f959e4.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163724884-2e2fb84a-be54-4111-9a5f-433a461a5715.png" width=270> <img src="https://user-images.githubusercontent.com/59532188/163724886-61223964-83bd-4f62-a3b7-d667ceca265a.png" width=270>
 
@@ -133,7 +133,7 @@ python test.py --config_file    [str]   # Path of config file (.yaml)
 
 ## Qualitative Results  
 Please click to enlarge the image.  
-The images below are very high resolution, so loading may be slow.  
+The images below are very high resolution, so loading may take some time.  
 
 #### (1) Daejeon, South Korea / 7602 X 7602
 <a href="https://2gunsu.synology.me:8090/github_images/traffic-density-estimator/origin/1_1.png"><img src="https://user-images.githubusercontent.com/59532188/163596595-cd7095da-32a0-4a71-8118-ed374b7d9858.png" width=180 height=180></a>
