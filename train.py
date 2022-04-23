@@ -111,11 +111,12 @@ if __name__ == "__main__":
     
     # Start Training
     trainer = trainer_cls(cfg)
-    trainer.resume_or_load(False)
+    trainer.resume_or_load(resume=False)
     trainer.train()
     
     
     # Export Config File
     cfg.MODEL.WEIGHTS = os.path.join(output_dir, 'model_final.pth')
     export_config(cfg, save_path=os.path.join(output_dir, 'config.yaml'))
+    
     

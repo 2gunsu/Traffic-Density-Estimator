@@ -98,7 +98,7 @@ class BasePredictor:
     
     def inference_on_single_image(self, image_file: str, save_dir: str, image_scale: float = 1.0, grid_split: bool = False, split_size: int = None) -> None:
         raise NotImplementedError
-        
+    
     def inference_on_multi_images(self, image_dir: str, save_dir: str, image_scale: float = 1.0, grid_split: bool = False, split_size: int = None) -> None:
         os.makedirs(save_dir, exist_ok=True)
         image_paths = [os.path.join(image_dir, f) for f in sorted(os.listdir(image_dir))]
