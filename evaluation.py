@@ -18,6 +18,7 @@ parser = argparse.ArgumentParser(description="Evaluator")
 parser.add_argument('--eval_path', type=str, required=True, help="Directory of evaluation data")
 parser.add_argument('--config_file', type=str, required=True, help="Path of config file (.yaml)")
 parser.add_argument('--weight_file', type=str, required=True, help="Path of weight file (.pth)")
+parser.add_argument('--output_dir', type=str, default='output', help="Output directory for evaluation results (Default: 'output')")
 
 parser.add_argument('--gpu_id', type=int, default=0, help="The index of the GPU to be used for evaluation (Only Single GPU Available)")
 
@@ -32,6 +33,8 @@ if __name__ == "__main__":
     cfg.merge_from_file(args.config_file)
     
     cfg.MODEL.DEVICE = f'cuda:{args.gpu_id}'
+    cfg.OUTPUT_DIR = args.output_dir
+    os.makedirs(args.output_dir)
     
     
     # Build Evaluation Dataset
